@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="generator" content="Observable Framework v1.13.0">
+<title>Dashboard | OpenDAL</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="preload" as="style" href="./_observablehq/theme-air,near-midnight,alt,wide.db1cdf55.css">
+<link rel="preload" as="style" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
+<link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight,alt,wide.db1cdf55.css">
+<link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
+<link rel="modulepreload" href="./_observablehq/client.428c4aa1.js">
+<link rel="modulepreload" href="./_observablehq/runtime.9393ab6d.js">
+<link rel="modulepreload" href="./_observablehq/stdlib.95bfbf7e.js">
+<link rel="modulepreload" href="./_import/components/revive.24f207f9.js">
+<link rel="modulepreload" href="./_import/components/trend.d5110478.js">
+<link rel="modulepreload" href="./_import/components/burndownPlot.6dbdbf2c.js">
+<link rel="modulepreload" href="./_import/components/dailyPlot.49704ba4.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/19c92b44.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/7055d4c5.js">
+<link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
+<link rel="modulepreload" href="./_observablehq/stdlib/inputs.d397b6a8.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/e828d8c8.js">
+<link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/407f7a1f.js">
+<link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/5bc129e1.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e95f898e.js">
+<link rel="modulepreload" href="./_npm/d3-axis@3.0.0/d44feff9.js">
+<link rel="modulepreload" href="./_npm/d3-brush@3.0.0/5830b12a.js">
+<link rel="modulepreload" href="./_npm/d3-chord@3.0.1/84d7b8e9.js">
+<link rel="modulepreload" href="./_npm/d3-color@3.1.0/2c0cdfa2.js">
+<link rel="modulepreload" href="./_npm/d3-contour@4.0.2/626bedc4.js">
+<link rel="modulepreload" href="./_npm/d3-delaunay@6.0.4/00c41b5d.js">
+<link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/b5f7cdc6.js">
+<link rel="modulepreload" href="./_npm/d3-drag@3.0.0/b22c5864.js">
+<link rel="modulepreload" href="./_npm/d3-ease@3.0.1/6f15f633.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/ef1ec490.js">
+<link rel="modulepreload" href="./_npm/d3-force@3.0.0/5e1ff060.js">
+<link rel="modulepreload" href="./_npm/d3-format@3.1.0/5851d7ef.js">
+<link rel="modulepreload" href="./_npm/d3-geo@3.1.1/dcd02767.js">
+<link rel="modulepreload" href="./_npm/d3-hierarchy@3.1.2/f1db2593.js">
+<link rel="modulepreload" href="./_npm/d3-interpolate@3.0.1/034b7bcb.js">
+<link rel="modulepreload" href="./_npm/d3-path@3.1.0/4bb53638.js">
+<link rel="modulepreload" href="./_npm/d3-polygon@3.0.1/bbafde58.js">
+<link rel="modulepreload" href="./_npm/d3-quadtree@3.0.1/aa5b35a8.js">
+<link rel="modulepreload" href="./_npm/d3-random@3.0.1/32c7fec2.js">
+<link rel="modulepreload" href="./_npm/d3-scale@4.0.2/567840a0.js">
+<link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/cf9b720b.js">
+<link rel="modulepreload" href="./_npm/d3-selection@3.0.0/5dcd62f4.js">
+<link rel="modulepreload" href="./_npm/d3-shape@3.2.0/f8e03c56.js">
+<link rel="modulepreload" href="./_npm/d3-timer@3.0.1/f31b5398.js">
+<link rel="modulepreload" href="./_npm/d3-transition@3.0.1/8debb4ba.js">
+<link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/4b0cc581.js">
+<link rel="modulepreload" href="./_npm/interval-tree-1d@1.0.4/a62ae5ce.js">
+<link rel="modulepreload" href="./_npm/internmap@2.0.3/5eed35fd.js">
+<link rel="modulepreload" href="./_npm/delaunator@5.0.1/e67acb27.js">
+<link rel="modulepreload" href="./_npm/binary-search-bounds@2.0.5/1ee6c50d.js">
+<link rel="modulepreload" href="./_npm/robust-predicates@3.0.2/8ac9039b.js">
+<link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
+<script type="module">
+
+import {define} from "./_observablehq/client.428c4aa1.js";
+import {registerFile} from "./_observablehq/stdlib.95bfbf7e.js";
+
+registerFile("./data/data.csv", {"name":"./data/data.csv","mimeType":"text/csv","path":"./_file/data/data.f3fa8e0c.csv","lastModified":1734618327278,"size":10230});
+registerFile("./data/github-issues.json", {"name":"./data/github-issues.json","mimeType":"application/json","path":"./_file/data/github-issues.7b21e862.json","lastModified":1734618337898,"size":1517097});
+registerFile("./data/github-stars.csv", {"name":"./data/github-stars.csv","mimeType":"text/csv","path":"./_file/data/github-stars.ebe82dce.csv","lastModified":1734618300156,"size":109760});
+
+define({id: "fb3accd0", outputs: ["revive","Trend","BurndownPlot","DailyPlot","utcParse"], body: async () => {
+const [{revive}, {Trend}, {BurndownPlot}, {DailyPlot}, {utcParse}] = await Promise.all([import("./_import/components/revive.24f207f9.js"), import("./_import/components/trend.d5110478.js"), import("./_import/components/burndownPlot.6dbdbf2c.js"), import("./_import/components/dailyPlot.49704ba4.js"), import("./_npm/d3-time-format@4.1.0/19c92b44.js")]);
+
+return {revive,Trend,BurndownPlot,DailyPlot,utcParse};
+}});
+
+define({id: "70ca030d", inputs: ["FileAttachment","revive"], outputs: ["issues","stars","codeagedata"], body: (FileAttachment,revive) => {
+const issues = FileAttachment("./data/github-issues.json").json().then(revive);
+const stars = FileAttachment("./data/github-stars.csv").csv({ typed: true });
+const codeagedata = FileAttachment("./data/data.csv").dsv({ array: true });
+return {issues,stars,codeagedata};
+}});
+
+define({id: "391fbe09", inputs: ["d3","utcParse"], outputs: ["end","start","lastMonth","lastWeek","x","parseDate"], body: (d3,utcParse) => {
+// These dates are declared globally to ensure consistency across plots.
+const end = new Date();
+const start = d3.utcYear.offset(end, -2);
+const lastMonth = d3.utcDay.offset(end, -28);
+const lastWeek = d3.utcDay.offset(end, -7);
+const x = {domain: [start, end]};
+const parseDate = utcParse("%Y-%m-%d");
+return {end,start,lastMonth,lastWeek,x,parseDate};
+}});
+
+define({id: "c784a739", inputs: ["codeagedata","parseDate","Plot"], outputs: ["jsondata","header","data","len","codeage"], body: (codeagedata,parseDate,Plot) => {
+let jsondata = []
+
+let header = codeagedata[0];
+let data = codeagedata.slice(1);
+let len = header.length;
+
+for (let j = 0;j < data.length; j++) {
+    const covert = (index) => {
+        return {
+            date: parseDate(data[j][0]),
+            value: Number.parseInt(data[j][index]),
+            name: header[index]
+        }
+    };
+    for (let i = len - 1; i > 1; i--) {
+        jsondata.push(covert(i));
+    }
+    jsondata.push(covert(1));
+}
+
+function codeage(width) {
+    return Plot.plot({
+        marginLeft: 20,
+        //
+        title: "Source code age",
+        subtitle: "Lines of code written per three-month segment",
+        width: width,
+        y: {
+            grid: true,
+            axis: "right",
+            label: "Lines of code (including blanks and comments)",
+            tickFormat: (d) => d / 1000 + "K",
+        },
+        color: {legend: true,columns: 1, swatchWidth: 50, style: "position: absolute;left: 20px;margin-top: 40px;"},
+        marks: [
+            Plot.areaY(jsondata, {x: "date", y: "value", y2: 0, fill: "name", title: "name"}),
+            Plot.ruleY([0]),
+        ]
+    })
+}
+return {jsondata,header,data,len,codeage};
+}});
+
+define({id: "d5af74c3", mode: "inline", inputs: ["d3","issues","display"], body: async (d3,issues,display) => {
+display(await(
+d3.sum(issues, (d) => !d.pull_request && d.state === "open").toLocaleString("en-US")
+))
+}});
+
+define({id: "e14f71cf", mode: "inline", inputs: ["d3","issues","display"], body: async (d3,issues,display) => {
+display(await(
+d3.sum(issues, (d) => d.pull_request && d.state === "open" && !d.draft).toLocaleString("en-US")
+))
+}});
+
+define({id: "8f18d031", mode: "inline", inputs: ["d3","issues","lastMonth","display"], body: async (d3,issues,lastMonth,display) => {
+display(await(
+d3.sum(issues, (d) => !d.pull_request && d.created_at >= lastMonth).toLocaleString("en-US")
+))
+}});
+
+define({id: "424ae4e5", mode: "inline", inputs: ["d3","issues","lastMonth","display"], body: async (d3,issues,lastMonth,display) => {
+display(await(
+d3.sum(issues, (d) => !d.pull_request && d.closed_at >= lastMonth).toLocaleString("en-US")
+))
+}});
+
+define({id: "6b282752", mode: "inline", inputs: ["stars","display"], body: async (stars,display) => {
+display(await(
+stars.length.toLocaleString("en-US")
+))
+}});
+
+define({id: "18b3d8ea", mode: "inline", inputs: ["Trend","d3","stars","lastWeek","display"], body: async (Trend,d3,stars,lastWeek,display) => {
+display(await(
+Trend(d3.sum(stars, (d) => d.starred_at >= lastWeek))
+))
+}});
+
+define({id: "c00e7e7b", mode: "inline", inputs: ["resize","codeage","display"], body: async (resize,codeage,display) => {
+display(await(
+resize((width) => codeage(width))
+))
+}});
+
+define({id: "30fb8f66", mode: "inline", inputs: ["BurndownPlot","issues","x","display"], body: async (BurndownPlot,issues,x,display) => {
+display(await(
+BurndownPlot(issues.filter((d) => !d.pull_request), {x, color: {legend: true, label: "open month"}})
+))
+}});
+
+define({id: "d22bf96a", mode: "inline", inputs: ["Inputs","issues","d3","end","width","html","display"], body: async (Inputs,issues,d3,end,width,html,display) => {
+display(await(
+Inputs.table(
+      issues
+        .filter((d) => d.state === "open" && d.reactions.total_count > 5)
+        .sort((a, b) => b.reactions.total_count - a.reactions.total_count)
+        .map((d) => ({
+          "title": {title: d.title, number: d.number},
+          "reactions": d.reactions.total_count,
+          "days old": d3.utcDay.count(d.created_at, end)
+        })),
+      {
+        width,
+        header: {
+          title: "Top issues"
+        },
+        format: {
+          title: (d) => html`<a href=https://github.com/apache/opendal/issues/${d.number} target=_blank>${d.title}</a>`
+        }
+      }
+    )
+))
+}});
+
+define({id: "e1d2c06d", mode: "inline", inputs: ["display"], body: async (display) => {
+display(await(
+new Date().toDateString()
+))
+}});
+
+</script>
+</head>
+<body>
+<div id="observablehq-center">
+<main id="observablehq-main" class="observablehq">
+<h1 id="dashboard" tabindex="-1"><a class="observablehq-header-anchor" href="#dashboard">Dashboard</a></h1>
+<div class="observablehq observablehq--block"><!--:fb3accd0:--></div>
+<div class="observablehq observablehq--block"><!--:70ca030d:--></div>
+<div class="observablehq observablehq--block"><!--:391fbe09:--></div>
+<div class="observablehq observablehq--block"><!--:c784a739:--></div>
+<div class="grid" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
+  <a class="card" href="https://github.com/apache/opendal/issues?q=is:issue+is:open+sort:updated-desc" style="color: inherit;" target="_blank" rel="noopener noreferrer">
+    <h2>Open issues</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:d5af74c3:--></span>
+  </a>
+  <a class="card" href="https://github.com/apache/opendal/pulls?q=is:pr+is:open+sort:updated-desc+draft:false" style="color: inherit;" target="_blank" rel="noopener noreferrer">
+    <h2>Open PRs</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:e14f71cf:--></span>
+  </a>
+  <a class="card" href="https://github.com/apache/opendal/issues?q=sort:created-desc" style="color: inherit;" target="_blank" rel="noopener noreferrer">
+    <h2>Recent opened issues</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:8f18d031:--></span>
+    <span class="muted">in 28d</span>
+  </a>
+  <a class="card" href="https://github.com/apache/opendal/issues?q=is:issue+is:closed+sort:updated-desc" style="color: inherit;" target="_blank" rel="noopener noreferrer">
+    <h2>Recent closed issues</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:424ae4e5:--></span>
+    <span class="muted">in 28d</span>
+  </a>
+  <a class="card" href="https://github.com/apache/opendal" style="color: inherit;" target="_blank" rel="noopener noreferrer">
+    <h2>GitHub stars</h2>
+    <span class="big"><observablehq-loading></observablehq-loading><!--:6b282752:--></span>
+    <observablehq-loading></observablehq-loading><!--:18b3d8ea:-->
+    <span class="muted">over 7d</span>
+  </a>
+</div>
+<div class="grid grid-cols-1">
+  <div class="card"><observablehq-loading></observablehq-loading><!--:c00e7e7b:--></div>
+</div>
+<div class="grid">
+  <div class="card">
+    <h2>Open issues over time</h2>
+    <observablehq-loading></observablehq-loading><!--:30fb8f66:-->
+  </div>
+</div>
+<div class="grid">
+  <div class="card" style="padding: 0">
+    <observablehq-loading></observablehq-loading><!--:d22bf96a:-->
+  </div>
+</div>
+<footer id="observablehq-footer" style="float: right;display: flex;flex-direction: column">
+<div>Built at <observablehq-loading></observablehq-loading><!--:e1d2c06d:--></div>
+<div style="margin-top: 10px">With ❤️ by <a href="https://github.com/bxb100" target="_blank" rel="noopener noreferrer">Lemon</a></div>
+</footer>
+</main>
+</div>
+</body>
+</html>

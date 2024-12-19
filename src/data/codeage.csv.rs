@@ -60,18 +60,16 @@ fn get_date_segment() -> &'static Vec<DateTime<Utc>> {
 
 fn main() -> Result<()> {
     let data = show()?;
-    
+
     let mut stdout = std::io::stdout();
     writeln!(&mut stdout, "{}", headers())?;
     write!(&mut stdout, "{data}")?;
-    
+
     Ok(())
 }
 
 fn command(args: Vec<&str>) -> Result<String> {
-    // todo: 删除 unwrap_or
-    let path =
-        env::var("REPO_PATH").unwrap_or("/Users/xiaobo/RustroverProjects/opendal".to_owned());
+    let path = env::var("REPO_PATH").expect("Need to set env REPO_PATH");
 
     let output = Command::new("git")
         .args(args)

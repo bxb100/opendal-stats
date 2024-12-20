@@ -94,7 +94,7 @@ fn test_single_file() {
 
 macro_rules! filter_many {
     ($line:ident, $ext:tt, $($other:tt),* ) => {
-        $line.ends_with($ext) $(|| $line.ends_with($other))*
+        !$line.ends_with($ext) $(&& !$line.ends_with($other))*
     };
 }
 
@@ -103,7 +103,8 @@ fn tag_files(tag: &str) -> Result<Vec<String>> {
     let files = command(vec!["ls-tree", "-r", "--name-only", tag])?;
 
     let res = files.lines()
-        .filter(|l| filter_many!(l, ".png", ".yaml", ".yml", ".md", ".jpg"))
+        .filter(|l| !l.starts_with(".") && !l.starts_with("website"))
+        .filter(|l| filter_many!(l, ".png", ".yaml", ".yml", ".md", ".jpg", ".lock"))
         .map(|l| l.to_owned()).collect::<Vec<_>>();
 
     Ok(res)

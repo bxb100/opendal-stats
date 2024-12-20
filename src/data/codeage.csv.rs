@@ -22,22 +22,14 @@ type Bucket = BTreeMap<&'static DateTime<Utc>, u32>;
 fn headers() -> &'static String {
     static CSV_HEADERS: OnceLock<String> = OnceLock::new();
     CSV_HEADERS.get_or_init(|| {
-        let arr = vec![
-            "date",
-            "< 2022-03-01",
-            "≥ 2022-06-01",
-            "≥ 2022-09-01",
-            "≥ 2022-12-01",
-            "≥ 2023-03-01",
-            "≥ 2023-06-01",
-            "≥ 2023-09-01",
-            "≥ 2023-12-01",
-            "≥ 2024-03-01",
-            "≥ 2024-06-01",
-            "≥ 2024-09-01",
-            "≥ 2024-12-01",
+        let segment = get_date_segment();
+        let mut arr = vec![
+            "date".to_owned(),
+            format!("< {}", segment[0].format("%Y-%m-%d")),
         ];
-
+        for seg in segment.iter().skip(1) {
+            arr.push(format!("≥ {}", seg.format("%Y-%m-%d")));
+        }
         arr.join(",")
     })
 }

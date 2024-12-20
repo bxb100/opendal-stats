@@ -9,13 +9,13 @@ import {revive} from "./components/revive.js";
 import {Trend} from "./components/trend.js";
 import {BurndownPlot} from "./components/burndownPlot.js";
 import {DailyPlot} from "./components/dailyPlot.js";
-import {utcParse} from "npm:d3-time-format";
+import {parse} from "./components/parsecodeage.js";
 ```
 
 ```js
 const issues = FileAttachment("data/github-issues.json").json().then(revive);
 const stars = FileAttachment("data/github-stars.csv").csv({ typed: true });
-const codeagedata = FileAttachment("data/codeage.csv").dsv({ array: true });
+const jsondata = FileAttachment("data/codeage.csv").dsv({ array: true }).then(parse);
 ```
 
 ```js
@@ -25,30 +25,9 @@ const start = d3.utcYear.offset(end, -2);
 const lastMonth = d3.utcDay.offset(end, -28);
 const lastWeek = d3.utcDay.offset(end, -7);
 const x = {domain: [start, end]};
-const parseDate = utcParse("%Y-%m-%d");
 ```
 
 ```js
-let jsondata = []
-
-let header = codeagedata[0];
-let data = codeagedata.slice(1);
-let len = header.length;
-
-for (let j = 0;j < data.length; j++) {
-    const covert = (index) => {
-        return {
-            date: parseDate(data[j][0]),
-            value: Number.parseInt(data[j][index]),
-            name: header[index]
-        }
-    };
-    for (let i = len - 1; i > 1; i--) {
-        jsondata.push(covert(i));
-    }
-    jsondata.push(covert(1));
-}
-
 function codeage(width) {
     return Plot.plot({
         marginLeft: 20,

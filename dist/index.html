@@ -19,14 +19,14 @@
 <link rel="modulepreload" href="./_import/components/trend.d5110478.js">
 <link rel="modulepreload" href="./_import/components/burndownPlot.6dbdbf2c.js">
 <link rel="modulepreload" href="./_import/components/dailyPlot.49704ba4.js">
-<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/19c92b44.js">
+<link rel="modulepreload" href="./_import/components/parsecodeage.aeaef7a0.js">
 <link rel="modulepreload" href="./_npm/d3@7.9.0/7055d4c5.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.d397b6a8.js">
 <link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/e828d8c8.js">
+<link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/19c92b44.js">
 <link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/407f7a1f.js">
 <link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
-<link rel="modulepreload" href="./_npm/d3-time@3.1.0/5bc129e1.js">
 <link rel="modulepreload" href="./_npm/d3-array@3.2.4/e95f898e.js">
 <link rel="modulepreload" href="./_npm/d3-axis@3.0.0/d44feff9.js">
 <link rel="modulepreload" href="./_npm/d3-brush@3.0.0/5830b12a.js">
@@ -51,6 +51,7 @@
 <link rel="modulepreload" href="./_npm/d3-scale-chromatic@3.1.0/cf9b720b.js">
 <link rel="modulepreload" href="./_npm/d3-selection@3.0.0/5dcd62f4.js">
 <link rel="modulepreload" href="./_npm/d3-shape@3.2.0/f8e03c56.js">
+<link rel="modulepreload" href="./_npm/d3-time@3.1.0/5bc129e1.js">
 <link rel="modulepreload" href="./_npm/d3-timer@3.0.1/f31b5398.js">
 <link rel="modulepreload" href="./_npm/d3-transition@3.0.1/8debb4ba.js">
 <link rel="modulepreload" href="./_npm/d3-zoom@3.0.0/4b0cc581.js">
@@ -65,55 +66,34 @@
 import {define} from "./_observablehq/client.428c4aa1.js";
 import {registerFile} from "./_observablehq/stdlib.95bfbf7e.js";
 
-registerFile("./data/codeage.csv", {"name":"./data/codeage.csv","mimeType":"text/csv","path":"./_file/data/codeage.8ba30c0a.csv","lastModified":1734685632221,"size":10188});
+registerFile("./data/codeage.csv", {"name":"./data/codeage.csv","mimeType":"text/csv","path":"./_file/data/codeage.8ba30c0a.csv","lastModified":1734690377832,"size":10188});
 registerFile("./data/github-issues.json", {"name":"./data/github-issues.json","mimeType":"application/json","path":"./_file/data/github-issues.7b21e862.json","lastModified":1734618337898,"size":1517097});
 registerFile("./data/github-stars.csv", {"name":"./data/github-stars.csv","mimeType":"text/csv","path":"./_file/data/github-stars.ebe82dce.csv","lastModified":1734618300156,"size":109760});
 
-define({id: "fb3accd0", outputs: ["revive","Trend","BurndownPlot","DailyPlot","utcParse"], body: async () => {
-const [{revive}, {Trend}, {BurndownPlot}, {DailyPlot}, {utcParse}] = await Promise.all([import("./_import/components/revive.24f207f9.js"), import("./_import/components/trend.d5110478.js"), import("./_import/components/burndownPlot.6dbdbf2c.js"), import("./_import/components/dailyPlot.49704ba4.js"), import("./_npm/d3-time-format@4.1.0/19c92b44.js")]);
+define({id: "61befead", outputs: ["revive","Trend","BurndownPlot","DailyPlot","parse"], body: async () => {
+const [{revive}, {Trend}, {BurndownPlot}, {DailyPlot}, {parse}] = await Promise.all([import("./_import/components/revive.24f207f9.js"), import("./_import/components/trend.d5110478.js"), import("./_import/components/burndownPlot.6dbdbf2c.js"), import("./_import/components/dailyPlot.49704ba4.js"), import("./_import/components/parsecodeage.aeaef7a0.js")]);
 
-return {revive,Trend,BurndownPlot,DailyPlot,utcParse};
+return {revive,Trend,BurndownPlot,DailyPlot,parse};
 }});
 
-define({id: "174d0c9c", inputs: ["FileAttachment","revive"], outputs: ["issues","stars","codeagedata"], body: (FileAttachment,revive) => {
+define({id: "8dd7533b", inputs: ["FileAttachment","revive","parse"], outputs: ["issues","stars","jsondata"], body: (FileAttachment,revive,parse) => {
 const issues = FileAttachment("./data/github-issues.json").json().then(revive);
 const stars = FileAttachment("./data/github-stars.csv").csv({ typed: true });
-const codeagedata = FileAttachment("./data/codeage.csv").dsv({ array: true });
-return {issues,stars,codeagedata};
+const jsondata = FileAttachment("./data/codeage.csv").dsv({ array: true }).then(parse);
+return {issues,stars,jsondata};
 }});
 
-define({id: "391fbe09", inputs: ["d3","utcParse"], outputs: ["end","start","lastMonth","lastWeek","x","parseDate"], body: (d3,utcParse) => {
+define({id: "ee04219b", inputs: ["d3"], outputs: ["end","start","lastMonth","lastWeek","x"], body: (d3) => {
 // These dates are declared globally to ensure consistency across plots.
 const end = new Date();
 const start = d3.utcYear.offset(end, -2);
 const lastMonth = d3.utcDay.offset(end, -28);
 const lastWeek = d3.utcDay.offset(end, -7);
 const x = {domain: [start, end]};
-const parseDate = utcParse("%Y-%m-%d");
-return {end,start,lastMonth,lastWeek,x,parseDate};
+return {end,start,lastMonth,lastWeek,x};
 }});
 
-define({id: "c784a739", inputs: ["codeagedata","parseDate","Plot"], outputs: ["jsondata","header","data","len","codeage"], body: (codeagedata,parseDate,Plot) => {
-let jsondata = []
-
-let header = codeagedata[0];
-let data = codeagedata.slice(1);
-let len = header.length;
-
-for (let j = 0;j < data.length; j++) {
-    const covert = (index) => {
-        return {
-            date: parseDate(data[j][0]),
-            value: Number.parseInt(data[j][index]),
-            name: header[index]
-        }
-    };
-    for (let i = len - 1; i > 1; i--) {
-        jsondata.push(covert(i));
-    }
-    jsondata.push(covert(1));
-}
-
+define({id: "26027517", inputs: ["Plot","jsondata"], outputs: ["codeage"], body: (Plot,jsondata) => {
 function codeage(width) {
     return Plot.plot({
         marginLeft: 20,
@@ -134,7 +114,7 @@ function codeage(width) {
         ]
     })
 }
-return {jsondata,header,data,len,codeage};
+return {codeage};
 }});
 
 define({id: "d5af74c3", mode: "inline", inputs: ["d3","issues","display"], body: async (d3,issues,display) => {
@@ -221,10 +201,10 @@ new Date().toDateString()
 <div id="observablehq-center">
 <main id="observablehq-main" class="observablehq">
 <h1 id="dashboard" tabindex="-1"><a class="observablehq-header-anchor" href="#dashboard">Dashboard</a></h1>
-<div class="observablehq observablehq--block"><!--:fb3accd0:--></div>
-<div class="observablehq observablehq--block"><!--:174d0c9c:--></div>
-<div class="observablehq observablehq--block"><!--:391fbe09:--></div>
-<div class="observablehq observablehq--block"><!--:c784a739:--></div>
+<div class="observablehq observablehq--block"><!--:61befead:--></div>
+<div class="observablehq observablehq--block"><!--:8dd7533b:--></div>
+<div class="observablehq observablehq--block"><!--:ee04219b:--></div>
+<div class="observablehq observablehq--block"><!--:26027517:--></div>
 <div class="grid" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
   <a class="card" href="https://github.com/apache/opendal/issues?q=is:issue+is:open+sort:updated-desc" style="color: inherit;" target="_blank" rel="noopener noreferrer">
     <h2>Open issues</h2>

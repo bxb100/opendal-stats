@@ -93,7 +93,7 @@ function codeage(width) {
   <a class="card" href="https://github.com/apache/opendal" style="color: inherit;">
     <h2>GitHub stars</h2>
     <span class="big">${stars.length.toLocaleString("en-US")}</span>
-    ${Trend(d3.sum(stars, (d) => d.starred_at >= lastWeek))}</span>
+    ${Trend(d3.sum(stars, (d) => d.starred_at >= lastWeek))}
     <span class="muted">over 7d</span>
   </a>
 </div>
@@ -138,5 +138,5 @@ function codeage(width) {
 
 <footer id="observablehq-footer" style="float: right;display: flex;flex-direction: column">
 <div>Built at ${new Date().toDateString()}</div>
-<div style="margin-top: 10px">With ❤️ by <a href="https://github.com/bxb100">Lemon</a></div>
+<div style="margin-top: 10px">With ❤️ by <a href="https://github.com/bxb100/opendal-stats">Lemon</a></div>
 </footer>

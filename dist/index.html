@@ -65,7 +65,7 @@
 import {define} from "./_observablehq/client.428c4aa1.js";
 import {registerFile} from "./_observablehq/stdlib.95bfbf7e.js";
 
-registerFile("./data/data.csv", {"name":"./data/data.csv","mimeType":"text/csv","path":"./_file/data/data.f3fa8e0c.csv","lastModified":1734618327278,"size":10230});
+registerFile("./data/codeage.csv", {"name":"./data/codeage.csv","mimeType":"text/csv","path":"./_file/data/codeage.8ba30c0a.csv","lastModified":1734685632221,"size":10188});
 registerFile("./data/github-issues.json", {"name":"./data/github-issues.json","mimeType":"application/json","path":"./_file/data/github-issues.7b21e862.json","lastModified":1734618337898,"size":1517097});
 registerFile("./data/github-stars.csv", {"name":"./data/github-stars.csv","mimeType":"text/csv","path":"./_file/data/github-stars.ebe82dce.csv","lastModified":1734618300156,"size":109760});
 
@@ -75,10 +75,10 @@ const [{revive}, {Trend}, {BurndownPlot}, {DailyPlot}, {utcParse}] = await Promi
 return {revive,Trend,BurndownPlot,DailyPlot,utcParse};
 }});
 
-define({id: "70ca030d", inputs: ["FileAttachment","revive"], outputs: ["issues","stars","codeagedata"], body: (FileAttachment,revive) => {
+define({id: "174d0c9c", inputs: ["FileAttachment","revive"], outputs: ["issues","stars","codeagedata"], body: (FileAttachment,revive) => {
 const issues = FileAttachment("./data/github-issues.json").json().then(revive);
 const stars = FileAttachment("./data/github-stars.csv").csv({ typed: true });
-const codeagedata = FileAttachment("./data/data.csv").dsv({ array: true });
+const codeagedata = FileAttachment("./data/codeage.csv").dsv({ array: true });
 return {issues,stars,codeagedata};
 }});
 
@@ -222,7 +222,7 @@ new Date().toDateString()
 <main id="observablehq-main" class="observablehq">
 <h1 id="dashboard" tabindex="-1"><a class="observablehq-header-anchor" href="#dashboard">Dashboard</a></h1>
 <div class="observablehq observablehq--block"><!--:fb3accd0:--></div>
-<div class="observablehq observablehq--block"><!--:70ca030d:--></div>
+<div class="observablehq observablehq--block"><!--:174d0c9c:--></div>
 <div class="observablehq observablehq--block"><!--:391fbe09:--></div>
 <div class="observablehq observablehq--block"><!--:c784a739:--></div>
 <div class="grid" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
@@ -267,7 +267,7 @@ new Date().toDateString()
 </div>
 <footer id="observablehq-footer" style="float: right;display: flex;flex-direction: column">
 <div>Built at <observablehq-loading></observablehq-loading><!--:e1d2c06d:--></div>
-<div style="margin-top: 10px">With ❤️ by <a href="https://github.com/bxb100" target="_blank" rel="noopener noreferrer">Lemon</a></div>
+<div style="margin-top: 10px">With ❤️ by <a href="https://github.com/bxb100/opendal-stats" target="_blank" rel="noopener noreferrer">Lemon</a></div>
 </footer>
 </main>
 </div>

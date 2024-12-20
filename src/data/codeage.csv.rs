@@ -9,12 +9,11 @@
 
 use anyhow::Result;
 use chrono::prelude::*;
-use chrono::Duration;
+use chrono::Months;
 use rayon::prelude::*;
 use std::collections::BTreeMap;
 use std::env;
 use std::io::Write;
-use std::ops::Add;
 use std::process::{Command, Stdio};
 use std::sync::OnceLock;
 
@@ -52,7 +51,7 @@ fn get_date_segment() -> &'static Vec<DateTime<Utc>> {
 
         while start_date <= end_date {
             dates.push(start_date);
-            start_date = start_date.add(Duration::days(90));
+            start_date = start_date.checked_add_months(Months::new(3)).unwrap();
         }
         dates
     })
@@ -101,21 +100,19 @@ fn test_single_file() {
     println!("{:?}", res)
 }
 
+macro_rules! filter_many {
+    ($line:ident, $ext:tt, $($other:tt),* ) => {
+        $line.ends_with($ext) $(|| $line.ends_with($other))*
+    };
+}
+
 fn tag_files(tag: &str) -> Result<Vec<String>> {
     // https://git-scm.com/docs/git-ls-tree
-    let files = command(vec![
-        "ls-tree",
-        "-r",
-        "--name-only",
-        tag,
-        "--",
-        "src",
-        "bindings",
-        "binaries",
-        "benches",
-    ])?;
+    let files = command(vec!["ls-tree", "-r", "--name-only", tag])?;
 
-    let res = files.lines().map(|l| l.to_owned()).collect::<Vec<_>>();
+    let res = files.lines()
+        .filter(|l| filter_many!(l, ".png", ".yaml", ".yml", ".md", ".jpg"))
+        .map(|l| l.to_owned()).collect::<Vec<_>>();
 
     Ok(res)
 }

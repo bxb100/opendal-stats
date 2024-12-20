@@ -1,6 +1,8 @@
 .DS_Store
-!/dist/
+!dist/
 node_modules/
 yarn-error.log
 .idea
 .env
+
+/src/.observablehq

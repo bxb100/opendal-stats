@@ -15,6 +15,9 @@
 <link rel="modulepreload" href="./_observablehq/client.428c4aa1.js">
 <link rel="modulepreload" href="./_observablehq/runtime.9393ab6d.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.95bfbf7e.js">
+<link rel="modulepreload" href="./_import/components/codeAgePlot.b4c16d6e.js">
+<link rel="modulepreload" href="./_import/components/commitCalendarPlot.aa4fec89.js">
+<link rel="modulepreload" href="./_import/components/commitRankPlot.a7c59985.js">
 <link rel="modulepreload" href="./_import/components/revive.24f207f9.js">
 <link rel="modulepreload" href="./_import/components/trend.d5110478.js">
 <link rel="modulepreload" href="./_import/components/burndownPlot.6dbdbf2c.js">
@@ -24,10 +27,10 @@
 <link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.d397b6a8.js">
 <link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/e828d8c8.js">
+<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e95f898e.js">
 <link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/19c92b44.js">
 <link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/407f7a1f.js">
 <link rel="modulepreload" href="./_npm/isoformat@0.2.1/c68fbd73.js">
-<link rel="modulepreload" href="./_npm/d3-array@3.2.4/e95f898e.js">
 <link rel="modulepreload" href="./_npm/d3-axis@3.0.0/d44feff9.js">
 <link rel="modulepreload" href="./_npm/d3-brush@3.0.0/5830b12a.js">
 <link rel="modulepreload" href="./_npm/d3-chord@3.0.1/84d7b8e9.js">
@@ -67,54 +70,34 @@ import {define} from "./_observablehq/client.428c4aa1.js";
 import {registerFile} from "./_observablehq/stdlib.95bfbf7e.js";
 
 registerFile("./data/codeage.csv", {"name":"./data/codeage.csv","mimeType":"text/csv","path":"./_file/data/codeage.8ba30c0a.csv","lastModified":1734690377832,"size":10188});
+registerFile("./data/github-commit.json", {"name":"./data/github-commit.json","mimeType":"application/json","path":"./_file/data/github-commit.971c0bb6.json","lastModified":1734717584513,"size":524622});
 registerFile("./data/github-issues.json", {"name":"./data/github-issues.json","mimeType":"application/json","path":"./_file/data/github-issues.7b21e862.json","lastModified":1734618337898,"size":1517097});
 registerFile("./data/github-stars.csv", {"name":"./data/github-stars.csv","mimeType":"text/csv","path":"./_file/data/github-stars.ebe82dce.csv","lastModified":1734618300156,"size":109760});
 
-define({id: "61befead", outputs: ["revive","Trend","BurndownPlot","DailyPlot","parse"], body: async () => {
-const [{revive}, {Trend}, {BurndownPlot}, {DailyPlot}, {parse}] = await Promise.all([import("./_import/components/revive.24f207f9.js"), import("./_import/components/trend.d5110478.js"), import("./_import/components/burndownPlot.6dbdbf2c.js"), import("./_import/components/dailyPlot.49704ba4.js"), import("./_import/components/parsecodeage.aeaef7a0.js")]);
+define({id: "72e761e0", outputs: ["CodeAgePlot","CommitCalendarPlot","CommitRankPlot","revive","Trend","BurndownPlot","DailyPlot","parse"], body: async () => {
+const [{CodeAgePlot}, {CommitCalendarPlot}, {CommitRankPlot}, {revive}, {Trend}, {BurndownPlot}, {DailyPlot}, {parse}] = await Promise.all([import("./_import/components/codeAgePlot.b4c16d6e.js"), import("./_import/components/commitCalendarPlot.aa4fec89.js"), import("./_import/components/commitRankPlot.a7c59985.js"), import("./_import/components/revive.24f207f9.js"), import("./_import/components/trend.d5110478.js"), import("./_import/components/burndownPlot.6dbdbf2c.js"), import("./_import/components/dailyPlot.49704ba4.js"), import("./_import/components/parsecodeage.aeaef7a0.js")]);
 
-return {revive,Trend,BurndownPlot,DailyPlot,parse};
+return {CodeAgePlot,CommitCalendarPlot,CommitRankPlot,revive,Trend,BurndownPlot,DailyPlot,parse};
 }});
 
-define({id: "8dd7533b", inputs: ["FileAttachment","revive","parse"], outputs: ["issues","stars","jsondata"], body: (FileAttachment,revive,parse) => {
+define({id: "771d6d1a", inputs: ["FileAttachment","revive","parse"], outputs: ["issues","stars","codeage","commits"], body: (FileAttachment,revive,parse) => {
 const issues = FileAttachment("./data/github-issues.json").json().then(revive);
 const stars = FileAttachment("./data/github-stars.csv").csv({ typed: true });
-const jsondata = FileAttachment("./data/codeage.csv").dsv({ array: true }).then(parse);
-return {issues,stars,jsondata};
+const codeage = FileAttachment("./data/codeage.csv").dsv({ array: true }).then(parse);
+const commits = FileAttachment("./data/github-commit.json").json().then(revive);
+return {issues,stars,codeage,commits};
 }});
 
-define({id: "ee04219b", inputs: ["d3"], outputs: ["end","start","lastMonth","lastWeek","x"], body: (d3) => {
+define({id: "2fb1c528", inputs: ["d3"], outputs: ["end","today","start","lastMonth","lastWeek","x","lastYear"], body: (d3) => {
 // These dates are declared globally to ensure consistency across plots.
 const end = new Date();
+const today = new Date();
 const start = d3.utcYear.offset(end, -2);
 const lastMonth = d3.utcDay.offset(end, -28);
 const lastWeek = d3.utcDay.offset(end, -7);
 const x = {domain: [start, end]};
-return {end,start,lastMonth,lastWeek,x};
-}});
-
-define({id: "26027517", inputs: ["Plot","jsondata"], outputs: ["codeage"], body: (Plot,jsondata) => {
-function codeage(width) {
-    return Plot.plot({
-        marginLeft: 20,
-        //
-        title: "Source code age",
-        subtitle: "Lines of code written per three-month segment",
-        width: width,
-        y: {
-            grid: true,
-            axis: "right",
-            label: "Lines of code (including blanks and comments)",
-            tickFormat: (d) => d / 1000 + "K",
-        },
-        color: {legend: true,columns: 1, swatchWidth: 50, style: "position: absolute;left: 20px;margin-top: 40px;"},
-        marks: [
-            Plot.areaY(jsondata, {x: "date", y: "value", y2: 0, fill: "name", title: "name"}),
-            Plot.ruleY([0]),
-        ]
-    })
-}
-return {codeage};
+const lastYear = d3.utcYear.offset(end, -1);
+return {end,today,start,lastMonth,lastWeek,x,lastYear};
 }});
 
 define({id: "d5af74c3", mode: "inline", inputs: ["d3","issues","display"], body: async (d3,issues,display) => {
@@ -153,9 +136,21 @@ Trend(d3.sum(stars, (d) => d.starred_at >= lastWeek))
 ))
 }});
 
-define({id: "c00e7e7b", mode: "inline", inputs: ["resize","codeage","display"], body: async (resize,codeage,display) => {
+define({id: "5467e40f", mode: "inline", inputs: ["CommitCalendarPlot","commits","lastYear","today","dark","display"], body: async (CommitCalendarPlot,commits,lastYear,today,dark,display) => {
 display(await(
-resize((width) => codeage(width))
+CommitCalendarPlot(commits, {lastYear, today, dark})
+))
+}});
+
+define({id: "8874c05c", mode: "inline", inputs: ["CommitRankPlot","commits","today","display"], body: async (CommitRankPlot,commits,today,display) => {
+display(await(
+CommitRankPlot(commits, {today})
+))
+}});
+
+define({id: "6487b878", mode: "inline", inputs: ["CodeAgePlot","codeage","display"], body: async (CodeAgePlot,codeage,display) => {
+display(await(
+CodeAgePlot(codeage)
 ))
 }});
 
@@ -201,10 +196,9 @@ new Date().toDateString()
 <div id="observablehq-center">
 <main id="observablehq-main" class="observablehq">
 <h1 id="dashboard" tabindex="-1"><a class="observablehq-header-anchor" href="#dashboard">Dashboard</a></h1>
-<div class="observablehq observablehq--block"><!--:61befead:--></div>
-<div class="observablehq observablehq--block"><!--:8dd7533b:--></div>
-<div class="observablehq observablehq--block"><!--:ee04219b:--></div>
-<div class="observablehq observablehq--block"><!--:26027517:--></div>
+<div class="observablehq observablehq--block"><!--:72e761e0:--></div>
+<div class="observablehq observablehq--block"><!--:771d6d1a:--></div>
+<div class="observablehq observablehq--block"><!--:2fb1c528:--></div>
 <div class="grid" style="grid-template-columns: repeat(5, minmax(0, 1fr));">
   <a class="card" href="https://github.com/apache/opendal/issues?q=is:issue+is:open+sort:updated-desc" style="color: inherit;" target="_blank" rel="noopener noreferrer">
     <h2>Open issues</h2>
@@ -232,7 +226,17 @@ new Date().toDateString()
   </a>
 </div>
 <div class="grid grid-cols-1">
-  <div class="card"><observablehq-loading></observablehq-loading><!--:c00e7e7b:--></div>
+  <div class="card">
+    <observablehq-loading></observablehq-loading><!--:5467e40f:-->
+  </div>
+</div>
+<div class="grid grid-cols-1">
+  <div class="card">
+    <observablehq-loading></observablehq-loading><!--:8874c05c:-->
+  </div>
+</div>
+<div class="grid">
+  <div class="card"><observablehq-loading></observablehq-loading><!--:6487b878:--></div>
 </div>
 <div class="grid">
   <div class="card">

@@ -14,9 +14,12 @@
     "d3-fetch": "^3.0.1",
     "d3-time": "^3.1.0",
     "d3-time-format": "^4.1.0",
-    "dotenv": "^16.3.1"
+    "dotenv": "^16.3.1",
+    "micromatch": "^4.0.8"
   },
   "devDependencies": {
+    "@types/d3-dsv": "^3.0.7",
+    "@types/micromatch": "^4.0.9",
     "@types/node": "^22.10.2",
     "rimraf": "^5.0.5"
   },

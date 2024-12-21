@@ -29,11 +29,12 @@ jobs:
           key: ${{ runner.os }}-cargo
 
       - name: Setup rust-script
-        run: cargo install rust-script@0.35.0
+        run:
+          which rust-script || cargo install rust-script@0.35.0
 
       - name: Checkout openDAL repo
         run:
-          git clone git@github.com:apache/opendal.git ~/opendal
+          git clone https://github.com/apache/opendal.git ~/opendal
 
       - run: yarn install
       - run: yarn run build

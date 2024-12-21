@@ -22,14 +22,17 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+      - name: Setup rust-script
+        run: cargo install rust-script
+
       - run: yarn install
       - run: yarn run build
         env:
-          REPO_PATH: $GITHUB_WORKSPACE/opendal
+          REPO_PATH: ${{ github.workspace }}/opendal
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Deploy to Observable Cloud
-        # This parameter to `--message` will use the latest commit message
-        run: yarn run deploy -- --message "$(git log -1 --pretty=%s)"
-        env:
-          # Authentication information. See below for how to set this up.
-          OBSERVABLE_TOKEN: ${{ secrets.OBSERVABLE_TOKEN }}
+
+      - name: Commit to gitHub
+        run: |
+          git add dist
+          git commit -m "Update docs" --author="github-actions[bot] <20685961+github-actions[bot]@users.noreply.github.com>"
+          git push origin main

@@ -33,13 +33,18 @@ jobs:
           which rust-script || cargo install rust-script@0.35.0
 
       - name: Checkout openDAL repo
-        run:
-          git clone https://github.com/apache/opendal.git ~/opendal
+        uses: actions/checkout@v4
+        with:
+          repository: 'apache/opendal'
+          path: opendal
+          ref: main
+          fetch-depth: 0
+      - run: cd opendal && git log --oneline
 
       - run: yarn install
-      - run: yarn run build
+      - run: yarn run clean && yarn run build
         env:
-          REPO_PATH: ~/opendal
+          REPO_PATH: ${{github.workspace}}/opendal
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit to gitHub

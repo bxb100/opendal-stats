@@ -22,8 +22,19 @@ jobs:
         with:
           node-version: 20
           cache: yarn
+
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo
+
       - name: Setup rust-script
-        run: cargo install rust-script
+        run: cargo install rust-script --locked
 
       - run: yarn install
       - run: yarn run build
@@ -33,6 +44,8 @@ jobs:
 
       - name: Commit to gitHub
         run: |
+          git config --global user.email "20685961+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
           git add dist
-          git commit -m "Update docs" --author="github-actions[bot] <20685961+github-actions[bot]@users.noreply.github.com>"
+          git commit -m "bot: update dist"
           git push origin main

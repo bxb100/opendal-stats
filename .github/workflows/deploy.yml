@@ -13,11 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
-        name: Checkout openDAL repo
-        with:
-          repository: apache/opendal
-          path: opendal
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -34,12 +29,16 @@ jobs:
           key: ${{ runner.os }}-cargo
 
       - name: Setup rust-script
-        run: cargo install rust-script --locked
+        run: cargo install rust-script@0.35.0
+
+      - name: Checkout openDAL repo
+        run:
+          git clone git@github.com:apache/opendal.git ~/opendal
 
       - run: yarn install
       - run: yarn run build
         env:
-          REPO_PATH: ${{ github.workspace }}/opendal
+          REPO_PATH: ~/opendal
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit to gitHub

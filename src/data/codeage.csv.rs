@@ -15,10 +15,12 @@ use std::collections::BTreeMap;
 use std::env;
 use std::io::Write;
 use std::process::{Command, Stdio};
+use std::str::FromStr;
 use std::sync::OnceLock;
 
 type Bucket = BTreeMap<&'static DateTime<Utc>, u32>;
 
+#[allow(unused)]
 fn headers() -> &'static String {
     static CSV_HEADERS: OnceLock<String> = OnceLock::new();
     CSV_HEADERS.get_or_init(|| {
@@ -49,7 +51,21 @@ fn get_date_segment() -> &'static Vec<DateTime<Utc>> {
     })
 }
 
+const CACHE: &str = include_str!("cache.csv");
+
 fn main() -> Result<()> {
+    let data = show()?;
+    let mut stdout = std::io::stdout();
+    write!(&mut stdout, "{}", CACHE)?;
+    if !data.trim().is_empty() {
+        write!(&mut stdout, "\n{}", data.trim())?;
+    }
+    Ok(())
+}
+
+#[test]
+fn test_main() -> Result<()> {
+    // build for non-cache, remember delete `cache.csv`
     let data = show()?;
 
     let mut stdout = std::io::stdout();
@@ -102,10 +118,12 @@ fn tag_files(tag: &str) -> Result<Vec<String>> {
     // https://git-scm.com/docs/git-ls-tree
     let files = command(vec!["ls-tree", "-r", "--name-only", tag])?;
 
-    let res = files.lines()
+    let res = files
+        .lines()
         .filter(|l| !l.starts_with(".") && !l.starts_with("website"))
         .filter(|l| filter_many!(l, ".png", ".yaml", ".yml", ".md", ".jpg", ".lock"))
-        .map(|l| l.to_owned()).collect::<Vec<_>>();
+        .map(|l| l.to_owned())
+        .collect::<Vec<_>>();
 
     Ok(res)
 }
@@ -197,17 +215,28 @@ fn test_get_tags() {
 fn show() -> Result<String> {
     let tags = get_tags()?;
 
+    let last_tag_date = if let Some(line) = CACHE.lines().last() {
+        NaiveDate::from_str(line[..10].trim()).ok()
+    } else {
+        None
+    };
+
     let mut data = tags
         .par_iter()
-        .map(|tag| {
+        .filter_map(|tag| {
             let create_at = get_tag_create_at(tag).unwrap();
+            if let Some(last_tag_date) = last_tag_date {
+                if create_at.date_naive() <= last_tag_date {
+                    return None;
+                }
+            }
             let data = merge(tag).unwrap();
             let s = data
                 .values()
                 .map(u32::to_string)
                 .collect::<Vec<_>>()
                 .join(",");
-            (create_at, s)
+            Some((create_at, s))
         })
         .collect::<Vec<_>>();
 

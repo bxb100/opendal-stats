@@ -212,14 +212,23 @@ fn test_get_tags() {
     println!("{:?}", data);
 }
 
+fn get_cache_last_date() -> Option<NaiveDate> {
+    CACHE
+        .lines()
+        .last()
+        .and_then(|line| NaiveDate::from_str(&line[..10]).ok())
+}
+
+#[test]
+fn test_get_cache_last_date() {
+    let data = get_cache_last_date().unwrap();
+    println!("{:?}", data);
+}
+
 fn show() -> Result<String> {
     let tags = get_tags()?;
 
-    let last_tag_date = if let Some(line) = CACHE.lines().last() {
-        NaiveDate::from_str(line[..10].trim()).ok()
-    } else {
-        None
-    };
+    let last_tag_date = get_cache_last_date();
 
     let mut data = tags
         .par_iter()

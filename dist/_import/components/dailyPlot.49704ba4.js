@@ -1,4 +1,4 @@
-import * as Plot from "../../_npm/@observablehq/plot@0.6.16/c753c76a.js";
+import * as Plot from "../../_npm/@observablehq/plot@0.6.16/32ed5fad.js";
 
 export function DailyPlot(data, {round = true, annotations, ...options} = {}) {
   return Plot.plot({

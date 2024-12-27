@@ -1,4 +1,5 @@
 starred_at,login
+<<<<<<<< HEAD:dist/_file/data/github-stars.d53b0048.csv
 2024-12-26T05:53:19Z,leslyarun
 2024-12-26T04:58:34Z,albertleigh
 2024-12-26T01:46:48Z,riag
@@ -14,6 +15,8 @@ starred_at,login
 2024-12-23T01:18:42Z,jovo00
 2024-12-23T00:04:06Z,nickosh
 2024-12-22T14:58:56Z,cammclain
+========
+>>>>>>>> e5f45d0 (fix: remove extra newline in codeage generate file):dist/_file/data/github-stars.3b7cff32.csv
 2024-12-21T14:57:37Z,Hao2203
 2024-12-21T13:09:33Z,makotogu
 2024-12-20T22:52:09Z,oxalica

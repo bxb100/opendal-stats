@@ -1,4 +1,4 @@
-import {utcParse} from "../../_npm/d3-time-format@4.1.0/28d1ef76.js";
+import {utcParse} from "../../_npm/d3-time-format@4.1.0/19c92b44.js";
 
 export function parse(codeagedata) {
   const parseDate = utcParse("%Y-%m-%d");

@@ -57,8 +57,10 @@ fn main() -> Result<()> {
     let data = show()?;
     let mut stdout = std::io::stdout();
     write!(&mut stdout, "{}", CACHE)?;
+
+    // I know the IDE automatic add newline at end, so that's why there not extra `\n`
     if !data.trim().is_empty() {
-        write!(&mut stdout, "\n{}", data.trim())?;
+        write!(&mut stdout, "{}", data.trim())?;
     }
     Ok(())
 }

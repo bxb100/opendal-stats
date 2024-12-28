@@ -1,6 +1,6 @@
-import * as Plot from "../../_npm/@observablehq/plot@0.6.16/32ed5fad.js";
+import * as Plot from "../../_npm/@observablehq/plot@0.6.16/3ca91556.js";
 import { resize } from "../../_observablehq/stdlib.95bfbf7e.js";
-import * as d3 from "../../_npm/d3@7.9.0/0e763469.js";
+import * as d3 from "../../_npm/d3@7.9.0/93fe06f7.js";
 
 export function CommitCalendarPlot(commits, { lastYear, today, dark }) {
 

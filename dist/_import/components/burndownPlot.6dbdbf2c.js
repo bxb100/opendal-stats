@@ -1,6 +1,6 @@
-import * as Plot from "../../_npm/@observablehq/plot@0.6.16/3ca91556.js";
+import * as Plot from "../../_npm/@observablehq/plot@0.6.16/e828d8c8.js";
 import {resize} from "../../_observablehq/stdlib.95bfbf7e.js";
-import * as d3 from "../../_npm/d3@7.9.0/93fe06f7.js";
+import * as d3 from "../../_npm/d3@7.9.0/7055d4c5.js";
 
 export function BurndownPlot(issues, {x, round = true, ...options} = {}) {
   const [start, end] = x.domain;

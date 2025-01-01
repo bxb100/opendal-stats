@@ -1,4 +1,4 @@
-import * as Plot from "../../_npm/@observablehq/plot@0.6.16/eadff306.js";
+import * as Plot from "../../_npm/@observablehq/plot@0.6.16/4cda9977.js";
 import { resize } from "../../_observablehq/stdlib.95bfbf7e.js";
 
 export function CodeAgePlot(data) {

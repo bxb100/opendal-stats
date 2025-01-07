@@ -1,7 +1,7 @@
-import * as Plot from "../../_npm/@observablehq/plot@0.6.16/8171784b.js";
+import * as Plot from "../../_npm/@observablehq/plot@0.6.16/e828d8c8.js";
 import { resize } from "../../_observablehq/stdlib.95bfbf7e.js";
-import * as d3 from "../../_npm/d3@7.9.0/7def3f80.js";
-import { greatest } from "../../_npm/d3-array@3.2.4/37839b6a.js";
+import * as d3 from "../../_npm/d3@7.9.0/7055d4c5.js";
+import { greatest } from "../../_npm/d3-array@3.2.4/e95f898e.js";
 
 export function CommitRankPlot(commits, { today }) {
   const commitsStart = greatest([ d3.utcYear.offset(today, -3), d3.utcDay(commits.at(-1).date) ]);

@@ -12,7 +12,7 @@
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&amp;display=swap" crossorigin>
 <link rel="stylesheet" type="text/css" href="./_observablehq/theme-air,near-midnight,alt,wide.db1cdf55.css">
 <link rel="stylesheet" type="text/css" href="./_observablehq/stdlib/inputs.ea9fd553.css">
-<link rel="modulepreload" href="./_observablehq/client.eded5315.js">
+<link rel="modulepreload" href="./_observablehq/client.01ea980f.js">
 <link rel="modulepreload" href="./_observablehq/runtime.9393ab6d.js">
 <link rel="modulepreload" href="./_observablehq/stdlib.95bfbf7e.js">
 <link rel="modulepreload" href="./_import/components/codeAgePlot.b4c16d6e.js">
@@ -23,10 +23,10 @@
 <link rel="modulepreload" href="./_import/components/burndownPlot.6dbdbf2c.js">
 <link rel="modulepreload" href="./_import/components/dailyPlot.49704ba4.js">
 <link rel="modulepreload" href="./_import/components/parsecodeage.aeaef7a0.js">
-<link rel="modulepreload" href="./_npm/d3@7.9.0/b557a378.js">
+<link rel="modulepreload" href="./_npm/d3@7.9.0/3da9d5d0.js">
 <link rel="modulepreload" href="./_npm/htl@0.3.1/063eb405.js">
 <link rel="modulepreload" href="./_observablehq/stdlib/inputs.d397b6a8.js">
-<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/7bc4434c.js">
+<link rel="modulepreload" href="./_npm/@observablehq/plot@0.6.16/b55d4b20.js">
 <link rel="modulepreload" href="./_npm/d3-array@3.2.4/37839b6a.js">
 <link rel="modulepreload" href="./_npm/d3-time-format@4.1.0/28d1ef76.js">
 <link rel="modulepreload" href="./_npm/d3-dsv@3.0.1/407f7a1f.js">
@@ -40,7 +40,7 @@
 <link rel="modulepreload" href="./_npm/d3-dispatch@3.0.1/b5f7cdc6.js">
 <link rel="modulepreload" href="./_npm/d3-drag@3.0.0/ef06b1ff.js">
 <link rel="modulepreload" href="./_npm/d3-ease@3.0.1/6f15f633.js">
-<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/35880c2a.js">
+<link rel="modulepreload" href="./_npm/d3-fetch@3.0.1/ef1ec490.js">
 <link rel="modulepreload" href="./_npm/d3-force@3.0.0/60bb70b3.js">
 <link rel="modulepreload" href="./_npm/d3-format@3.1.0/33fb7288.js">
 <link rel="modulepreload" href="./_npm/d3-geo@3.1.1/5e427f4b.js">
@@ -66,13 +66,13 @@
 <link rel="icon" href="./_file/observable.1af93621.png" type="image/png" sizes="32x32">
 <script type="module">
 
-import {define} from "./_observablehq/client.eded5315.js";
+import {define} from "./_observablehq/client.01ea980f.js";
 import {registerFile} from "./_observablehq/stdlib.95bfbf7e.js";
 
-registerFile("./data/codeage.csv", {"name":"./data/codeage.csv","mimeType":"text/csv","path":"./_file/data/codeage.4e16ac1d.csv","lastModified":1736677850647,"size":11098});
-registerFile("./data/github-commit.json", {"name":"./data/github-commit.json","mimeType":"application/json","path":"./_file/data/github-commit.346c6464.json","lastModified":1736677863157,"size":531975});
-registerFile("./data/github-issues.json", {"name":"./data/github-issues.json","mimeType":"application/json","path":"./_file/data/github-issues.9b60f022.json","lastModified":1736677831175,"size":1544257});
-registerFile("./data/github-stars.csv", {"name":"./data/github-stars.csv","mimeType":"text/csv","path":"./_file/data/github-stars.056c03d9.csv","lastModified":1736677837135,"size":112026});
+registerFile("./data/codeage.csv", {"name":"./data/codeage.csv","mimeType":"text/csv","path":"./_file/data/codeage.ab33f8c7.csv","lastModified":1736764508419,"size":11178});
+registerFile("./data/github-commit.json", {"name":"./data/github-commit.json","mimeType":"application/json","path":"./_file/data/github-commit.78fd292f.json","lastModified":1736764521906,"size":532723});
+registerFile("./data/github-issues.json", {"name":"./data/github-issues.json","mimeType":"application/json","path":"./_file/data/github-issues.b65b5c95.json","lastModified":1736764485624,"size":1545269});
+registerFile("./data/github-stars.csv", {"name":"./data/github-stars.csv","mimeType":"text/csv","path":"./_file/data/github-stars.740b5d57.csv","lastModified":1736764492228,"size":112149});
 
 define({id: "72e761e0", outputs: ["CodeAgePlot","CommitCalendarPlot","CommitRankPlot","revive","Trend","BurndownPlot","DailyPlot","parse"], body: async () => {
 const [{CodeAgePlot}, {CommitCalendarPlot}, {CommitRankPlot}, {revive}, {Trend}, {BurndownPlot}, {DailyPlot}, {parse}] = await Promise.all([import("./_import/components/codeAgePlot.b4c16d6e.js"), import("./_import/components/commitCalendarPlot.aa4fec89.js"), import("./_import/components/commitRankPlot.a7c59985.js"), import("./_import/components/revive.24f207f9.js"), import("./_import/components/trend.d5110478.js"), import("./_import/components/burndownPlot.6dbdbf2c.js"), import("./_import/components/dailyPlot.49704ba4.js"), import("./_import/components/parsecodeage.aeaef7a0.js")]);

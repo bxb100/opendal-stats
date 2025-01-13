@@ -1,6 +1,6 @@
-import * as Plot from "../../_npm/@observablehq/plot@0.6.16/7bc4434c.js";
+import * as Plot from "../../_npm/@observablehq/plot@0.6.16/b55d4b20.js";
 import { resize } from "../../_observablehq/stdlib.95bfbf7e.js";
-import * as d3 from "../../_npm/d3@7.9.0/b557a378.js";
+import * as d3 from "../../_npm/d3@7.9.0/3da9d5d0.js";
 import { greatest } from "../../_npm/d3-array@3.2.4/37839b6a.js";
 
 export function CommitRankPlot(commits, { today }) {
